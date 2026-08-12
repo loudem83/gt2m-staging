@@ -1,0 +1,482 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@400;500&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --navy: #3E2A35; --amber: #FF7F65; --off-white: #FFDDD6; --mid-grey: #848C8E; --light-border: rgba(13,27,42,0.12); }
+  body { font-family: 'Inter', sans-serif; background: var(--off-white); color: var(--navy); }
+  nav { position: sticky; top: 0; z-index: 100; background: #ffffff; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 58px; border-bottom: 2px solid var(--amber); box-shadow: 0 1px 12px rgba(62,42,53,0.08); }
+  .nav-logo { display: flex; align-items: center; }
+  .nav-logo span { color: var(--amber); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 13px; font-weight: 500; color: rgba(62,42,53,0.6); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+  .nav-links a:hover { color: #3E2A35; }
+  .nav-cta { background: var(--amber); color: var(--navy); font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif; border: none; border-radius: 0; padding: 8px 18px; cursor: pointer; }
+  .page { display: none; }
+  .page.active { display: block; }
+  .hero { background: var(--navy); padding: 5rem 2.5rem 4rem; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); font-weight: 500; margin-bottom: 1.5rem; }
+  .hero-headline { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(52px, 8vw, 88px); line-height: 0.92; color: #fff; margin-bottom: 2rem; letter-spacing: -2px; }
+  .hero-headline .stencil { color: var(--amber); }
+  .hero-sub { font-size: 16px; color: rgba(255,220,210,0.75); max-width: 480px; line-height: 1.7; margin-bottom: 3rem; }
+  .hero-paths { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .path-btn { display: flex; align-items: center; gap: 10px; padding: 14px 22px; font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fff; cursor: pointer; transition: all 0.2s; border-radius: 0; }
+  .path-btn:hover { background: rgba(255,255,255,0.08); }
+  .path-btn.primary { background: var(--amber); border-color: var(--amber); color: var(--navy); }
+  .stats-bar { background: var(--amber); display: flex; justify-content: center; }
+  .stat-item { padding: 1.5rem 3rem; text-align: center; border-right: 1px solid rgba(13,27,42,0.15); }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 28px; color: var(--navy); }
+  .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: rgba(13,27,42,0.6); margin-top: 2px; }
+  .section { padding: 5rem 2.5rem; }
+  .section-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); font-weight: 500; margin-bottom: 1rem; }
+  .section-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 32px; color: var(--navy); margin-bottom: 1.5rem; letter-spacing: -0.5px; }
+  .section-body { font-size: 16px; color: #5A4A52; line-height: 1.8; max-width: 640px; }
+  .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .mission-values { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1rem; }
+  .value-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .value-dot { width: 8px; height: 8px; background: var(--amber); margin-top: 7px; flex-shrink: 0; }
+  .value-text { font-size: 15px; color: #5A4A52; line-height: 1.6; }
+  .value-text strong { color: var(--navy); font-weight: 500; display: block; margin-bottom: 2px; }
+  .stories-section { background: #ffffff; padding: 5rem 2.5rem; }
+  .stories-section .section-title { color: var(--navy); }
+  .stories-section .section-eyebrow { color: var(--amber); }
+  .stories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 3rem; }
+  .story-card:first-child { border-left: none; }
+  .story-card { background: transparent; border: none; padding: 1.75rem 2rem; border-left: 1px solid rgba(62,42,53,0.12); }
+  .story-quote { font-size: 15px; color: rgba(62,42,53,0.75); line-height: 1.7; margin-bottom: 1.5rem; font-style: italic; }
+  .story-quote::before { content: '"'; color: var(--amber); font-size: 32px; font-family: 'Syne', sans-serif; line-height: 0; vertical-align: -10px; margin-right: 4px; }
+  .story-author { display: flex; align-items: center; gap: 12px; }
+  .story-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--amber); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--navy); flex-shrink: 0; }
+  .story-name { font-size: 13px; font-weight: 500; color: #3E2A35; }
+  .story-role { font-size: 12px; color: var(--mid-grey); }
+  .story-tag { display: inline-block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; background: rgba(245,166,35,0.15); color: var(--amber); padding: 3px 8px; margin-bottom: 1rem; }
+  .banner-section { background: #fff; padding: 2.5rem; border-top: 1px solid var(--light-border); border-bottom: 1px solid var(--light-border); }
+  .banner-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-grey); text-align: center; margin-bottom: 1.5rem; }
+  .logo-track { display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap; align-items: center; }
+  .logo-pill { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: rgba(13,27,42,0.3); }
+  .divider { height: 1px; background: var(--light-border); margin: 0 2.5rem; }
+  .page-hero { background: var(--navy); padding: 4rem 2.5rem 3rem; }
+  .page-hero-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(36px, 5vw, 56px); color: #fff; letter-spacing: -1px; line-height: 1; }
+  .page-hero-title span { color: var(--amber); }
+  .page-hero-sub { font-size: 15px; color: rgba(255,255,255,0.55); margin-top: 1rem; max-width: 520px; line-height: 1.7; }
+  .tab-bar { display: flex; border-bottom: 2px solid var(--light-border); padding: 0 2.5rem; background: #fff; }
+  .tab-btn { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: var(--mid-grey); background: none; border: none; border-bottom: 2px solid transparent; margin-bottom: -2px; padding: 1rem 1.5rem 1rem 0; cursor: pointer; transition: all 0.2s; }
+  .tab-btn.active { color: var(--navy); border-bottom-color: var(--amber); }
+  .tab-content { display: none; padding: 3rem 2.5rem; }
+  .tab-content.active { display: block; }
+  .process { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; }
+  .process-step { padding: 1.5rem; border-left: 3px solid var(--amber); background: #fff; }
+  .step-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 28px; color: rgba(13,27,42,0.1); margin-bottom: 0.5rem; }
+  .step-title { font-size: 15px; font-weight: 500; color: var(--navy); margin-bottom: 0.5rem; }
+  .step-body { font-size: 13px; color: #6B7280; line-height: 1.6; }
+  .form-section { background: var(--off-white); padding: 3rem 2.5rem; border-top: 1px solid var(--light-border); }
+  .form-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 22px; color: var(--navy); margin-bottom: 0.5rem; }
+  .form-sub { font-size: 14px; color: var(--mid-grey); margin-bottom: 2rem; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 600px; }
+  .form-field { display: flex; flex-direction: column; gap: 6px; }
+  .form-field.wide { grid-column: 1/-1; }
+  .form-field label { font-size: 12px; font-weight: 500; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-field input, .form-field select, .form-field textarea { border: 1px solid var(--light-border); background: #fff; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--navy); padding: 10px 12px; border-radius: 0; outline: none; transition: border-color 0.2s; }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--navy); }
+  .form-field textarea { min-height: 90px; resize: vertical; }
+  .pill-group { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill-opt { padding: 9px 18px; font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 500; color: var(--mid-grey); background-color: #fff; border: 1px solid var(--light-border); cursor: pointer; border-radius: 0; outline: none; -webkit-appearance: none; appearance: none; }
+  .pill-opt[aria-pressed="true"] { background-color: var(--navy) !important; color: #fff !important; border-color: var(--navy) !important; }
+  .toggle-group { display: flex; }
+  .toggle-opt { padding: 9px 28px; font-size: 14px; font-family: 'Inter', sans-serif; font-weight: 500; color: var(--mid-grey); background-color: #fff; border: 1px solid var(--light-border); cursor: pointer; border-radius: 0; outline: none; -webkit-appearance: none; appearance: none; }
+  .toggle-opt:first-child { border-right: none; }
+  .toggle-opt[aria-pressed="true"] { background-color: var(--navy) !important; color: #fff !important; border-color: var(--navy) !important; }
+  .submit-btn { margin-top: 1.5rem; background: var(--navy); color: #fff; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; border: none; padding: 12px 28px; cursor: pointer; border-radius: 0; }
+  .submit-btn:hover { opacity: 0.85; }
+
+  .brand-fork-btn {
+    display: flex; flex-direction: column; align-items: flex-start;
+    gap: 0.6rem;
+    padding: 1.75rem 2rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    cursor: pointer; text-align: left;
+    transition: background 0.2s, border-color 0.2s;
+    width: 320px; min-height: 140px;
+    border-radius: 0;
+    font-family: 'Inter', sans-serif;
+  }
+  .brand-fork-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.25); }
+  .brand-fork-btn.teal:hover { border-color: rgba(220,247,99,0.5); }
+  .brand-fork-label {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 15px; letter-spacing: -0.3px;
+  }
+  .brand-fork-label.amber { color: #FF7F65; }
+  .brand-fork-label.teal-label { color: #F0FBBB; }
+  .brand-fork-desc {
+    font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6;
+  }
+  .brand-fork-cta {
+    font-size: 12px; font-weight: 500; margin-top: 0.25rem;
+  }
+  .brand-fork-btn:not(.teal) .brand-fork-cta { color: #FF7F65; }
+  .brand-fork-btn.teal .brand-fork-cta { color: #F0FBBB; }
+
+
+  .proof-banner { padding: 1.4rem 2.5rem; display: flex; align-items: center; gap: 2rem; overflow: hidden; }
+  .proof-banner.companies { background: #ffffff; border-top: 1px solid var(--light-border); }
+  .proof-banner.universities { background: #ffffff; border-top: 1px solid var(--light-border); border-bottom: 1px solid var(--light-border); }
+  .proof-label-side { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-grey); font-weight: 500; white-space: nowrap; flex-shrink: 0; padding-right: 1.5rem; border-right: 1px solid var(--light-border); }
+  .proof-track-wrapper { overflow: hidden; flex: 1; position: relative; }
+  .proof-banner.companies .proof-track-wrapper::before { content:''; position:absolute; top:0; bottom:0; left:0; width:40px; background: linear-gradient(to right, #fff, transparent); z-index:2; pointer-events:none; }
+  .proof-banner.companies .proof-track-wrapper::after { content:''; position:absolute; top:0; bottom:0; right:0; width:40px; background: linear-gradient(to left, #fff, transparent); z-index:2; pointer-events:none; }
+  .proof-banner.universities .proof-track-wrapper::before { content:''; position:absolute; top:0; bottom:0; left:0; width:40px; background: linear-gradient(to right, #ffffff, transparent); z-index:2; pointer-events:none; }
+  .proof-banner.universities .proof-track-wrapper::after { content:''; position:absolute; top:0; bottom:0; right:0; width:40px; background: linear-gradient(to left, #ffffff, transparent); z-index:2; pointer-events:none; }
+  .proof-track { display: flex; gap: 3rem; align-items: center; animation: scroll-left 24s linear infinite; width: max-content; }
+  .proof-track.slow { animation-duration: 30s; }
+  .proof-track:hover { animation-play-state: paused; }
+  @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .proof-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: rgba(62,42,53,0.3); white-space: nowrap; }
+
+  .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
+  .bullet-list li { font-size: 14px; color: #5A4A52; display: flex; gap: 8px; align-items: flex-start; }
+  .bullet-list li::before { content: '→'; color: var(--amber); font-weight: 700; flex-shrink: 0; }
+  .service-card { padding: 1.5rem; border: 1px solid var(--light-border); background: #fff; }
+  .service-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--amber); font-weight: 500; margin-bottom: 0.75rem; }
+  .service-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 17px; color: var(--navy); margin-bottom: 0.5rem; }
+  .service-body { font-size: 13px; color: #6B7280; line-height: 1.6; }
+  .partner-block { padding: 2rem; border: 1px solid var(--light-border); background: #fff; }
+  .partner-block-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; color: var(--navy); margin-bottom: 0.75rem; }
+  .partner-block-body { font-size: 14px; color: #6B7280; line-height: 1.7; }
+</style>
+
+<div id="app">
+  <nav>
+    <div class="nav-logo"><img src="data:image/png;base64,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" alt="GET2" style="height:36px;display:block;filter:brightness(0) saturate(100%);"></div>
+    <ul class="nav-links">
+      <li><a onclick="showPage('home')">Home</a></li>
+      <li><a onclick="showPage('mentoring')">Fellowship</a></li>
+      <li><a onclick="showPage('partner')">Partner with us</a></li>
+    </ul>
+    <button class="nav-cta" onclick="showPage('mentoring')">Apply for fellowship</button>
+  </nav>
+
+  <!-- HOME -->
+  <div id="page-home" class="page active">
+    <div class="hero">
+      <div class="hero-eyebrow">Sales & GTM career development</div>
+      <div class="hero-headline"><span class="stencil">Get</span><span style="color:#fff">2</span></div>
+      <p class="hero-sub">We connect ambitious graduates and career-changers with senior sales and go-to-market leaders. Real mentors. Real fellows. Real growth.</p>
+      <div class="hero-paths" style="gap:1.5rem; margin-top:2.5rem;">
+        <button class="brand-fork-btn" onclick="showPage('partner')">
+          <div class="brand-fork-label amber">GET2MARKET</div>
+          <div class="brand-fork-desc">Connects senior go-to-market leaders through events, peer networks, and thought leadership.</div>
+          <div class="brand-fork-cta">Join the community →</div>
+        </button>
+        <button class="brand-fork-btn teal" onclick="showPage('mentoring');showTab('fellow')">
+          <div class="brand-fork-label teal-label">GET2TECH</div>
+          <div class="brand-fork-desc">Connects students and career-changers with the mentors, bootcamps, and opportunities to get there.</div>
+          <div class="brand-fork-cta">Apply for a fellowship →</div>
+        </button>
+      </div>
+    </div></div>
+
+    <!-- COMPANY ROLLING BANNER -->
+    <div class="proof-banner companies">
+      <div class="proof-label-side">Our members work at</div>
+      <div class="proof-track-wrapper">
+        <div class="proof-track">
+          <span class="proof-name">Salesforce</span>
+          <span class="proof-name">HubSpot</span>
+          <span class="proof-name">Stripe</span>
+          <span class="proof-name">Workday</span>
+          <span class="proof-name">Gartner</span>
+          <span class="proof-name">LinkedIn</span>
+          <span class="proof-name">Oracle</span>
+          <span class="proof-name">Zendesk</span>
+          <span class="proof-name">Intercom</span>
+          <span class="proof-name">SAP</span>
+          <!-- duplicate for seamless loop -->
+          <span class="proof-name">Salesforce</span>
+          <span class="proof-name">HubSpot</span>
+          <span class="proof-name">Stripe</span>
+          <span class="proof-name">Workday</span>
+          <span class="proof-name">Gartner</span>
+          <span class="proof-name">LinkedIn</span>
+          <span class="proof-name">Oracle</span>
+          <span class="proof-name">Zendesk</span>
+          <span class="proof-name">Intercom</span>
+          <span class="proof-name">SAP</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- UNIVERSITY ROLLING BANNER -->
+    <div class="proof-banner universities">
+      <div class="proof-label-side">University partners</div>
+      <div class="proof-track-wrapper">
+        <div class="proof-track slow">
+          <span class="proof-name">University College Dublin</span>
+          <span class="proof-name">Trinity College Dublin</span>
+          <span class="proof-name">DCU</span>
+          <span class="proof-name">Maynooth University</span>
+          <span class="proof-name">RCSI</span>
+          <span class="proof-name">Griffith College</span>
+          <span class="proof-name">UCC</span>
+          <span class="proof-name">University of Limerick</span>
+          <!-- duplicate for seamless loop -->
+          <span class="proof-name">University College Dublin</span>
+          <span class="proof-name">Trinity College Dublin</span>
+          <span class="proof-name">DCU</span>
+          <span class="proof-name">Maynooth University</span>
+          <span class="proof-name">RCSI</span>
+          <span class="proof-name">Griffith College</span>
+          <span class="proof-name">UCC</span>
+          <span class="proof-name">University of Limerick</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section">
+      <div class="mission-grid">
+        <div>
+          <div class="section-eyebrow">Get2Tech</div>
+          <div class="section-title">Breaking into sales shouldn't depend on who you know</div>
+          <p class="section-body">Get2Tech was built on a simple belief: that the best sales talent isn't always in the best rooms. We exist to change that — by pairing driven fellows with mentors who've built and scaled GTM teams at the highest level.</p>
+        </div>
+        <div class="mission-values">
+          <div class="value-item"><div class="value-dot"></div><div class="value-text"><strong>Access over pedigree</strong>Your potential matters more than your network. We open doors.</div></div>
+          <div class="value-item"><div class="value-dot"></div><div class="value-text"><strong>Practitioners, not coaches</strong>Every mentor has done the job — VP Sales, RevOps, SDR leaders.</div></div>
+          <div class="value-item"><div class="value-dot"></div><div class="value-text"><strong>Outcomes, not activity</strong>We measure success by job offers and career progression, full stop.</div></div>
+          <div class="value-item"><div class="value-dot"></div><div class="value-text"><strong>University partnerships</strong>Working directly with career services to reach students early.</div></div>
+        </div>
+      </div>
+    </div>
+    
+
+
+    <!-- GET2MARKET MISSION -->
+    <div class="section" style="background:#3E2A35; padding:5rem 2.5rem;">
+      <div class="mission-grid">
+        <div>
+          <div class="section-eyebrow" style="color:#FF7F65;">Get2Market</div>
+          <div class="section-title" style="color:#fff;">Where senior GTM leaders connect, learn, and lead</div>
+          <p class="section-body" style="color:rgba(255,255,255,0.55);">Get2Market is the community for experienced go-to-market leaders — VPs, RevOps heads, and commercial founders who want to stay sharp, share hard-won knowledge, and shape the next generation of talent.</p>
+        </div>
+        <div class="mission-values">
+          <div class="value-item"><div class="value-dot" style="background:#FF7F65;"></div><div class="value-text" style="color:rgba(255,255,255,0.7);"><strong style="color:#fff;">Monthly events & roundtables</strong>Curated conversations with peers who've been in the room.</div></div>
+          <div class="value-item"><div class="value-dot" style="background:#FF7F65;"></div><div class="value-text" style="color:rgba(255,255,255,0.7);"><strong style="color:#fff;">Peer problem-solving</strong>Bring your real GTM challenges. Leave with real answers.</div></div>
+          <div class="value-item"><div class="value-dot" style="background:#FF7F65;"></div><div class="value-text" style="color:rgba(255,255,255,0.7);"><strong style="color:#fff;">Thought leadership</strong>Contribute to the GTM conversation that matters.</div></div>
+          <div class="value-item"><div class="value-dot" style="background:#FF7F65;"></div><div class="value-text" style="color:rgba(255,255,255,0.7);"><strong style="color:#fff;">Corporate partnerships</strong>Connect with organisations investing in GTM excellence.</div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="divider"></div>
+    <div class="stories-section">
+      <div class="section-eyebrow">Success stories</div>
+      <div class="section-title">From application to offer letter</div>
+      <div class="stories-grid">
+        <div class="story-card"><div class="story-tag">Get2 Fellow</div><div class="story-quote">Get2 connected me with a VP of Sales at a Series B startup. Three months later I had my first AE role. I wouldn't have known where to start without them.</div><div class="story-author"><div class="story-avatar">AM</div><div><div class="story-name">Aoife Murphy</div><div class="story-role">AE @ Stripe, Dublin</div></div></div></div>
+        <div class="story-card"><div class="story-tag">University</div><div class="story-quote">Our students come out of the Get2 fellowship with a confidence and industry vocabulary that used to take two years on the job to develop. It's been transformative for our placement rates.</div><div class="story-author"><div class="story-avatar">DC</div><div><div class="story-name">Dr. Claire Doyle</div><div class="story-role">Head of Careers, UCD</div></div></div></div>
+        <div class="story-card"><div class="story-tag">Mentor</div><div class="story-quote">I wish something like this existed when I was starting out. The time commitment is manageable and the impact on these young careers is real. It's the best hour of my week.</div><div class="story-author"><div class="story-avatar">RB</div><div><div class="story-name">Ronan Burke</div><div class="story-role">VP Sales EMEA, Salesforce</div></div></div></div>
+      </div>
+    </div>
+    
+
+    
+  </div>
+
+  <!-- FELLOWSHIP -->
+  <div id="page-mentoring" class="page">
+    <div class="page-hero">
+      <div class="hero-eyebrow">Get2 fellowship</div>
+      <div class="page-hero-title">Your <span>GTM career</span><br>starts here</div>
+      <p class="page-hero-sub">Whether you're applying for a fellowship or giving back as a mentor, this is where it begins.</p>
+    </div>
+    <div class="tab-bar">
+      <button id="tab-fellow" class="tab-btn active" onclick="showTab('fellow')">Apply for a fellowship</button>
+      <button id="tab-mentor" class="tab-btn" onclick="showTab('mentor')">Become a mentor</button>
+    </div>
+
+    <div id="content-fellow" class="tab-content active">
+      <div class="section-eyebrow">The fellowship</div>
+      <div class="section-title">What to expect as a GTM Fellow</div>
+      <div class="process">
+        <div class="process-step"><div class="step-num">01</div><div class="step-title">Apply in 5 minutes</div><div class="step-body">Tell us about your background, career goals, and what kind of GTM role you're targeting. No CV required at this stage.</div></div>
+        <div class="process-step"><div class="step-num">02</div><div class="step-title">Get matched</div><div class="step-body">We match each fellow with a mentor whose experience aligns with where they want to go — not just what they studied.</div></div>
+        <div class="process-step"><div class="step-num">03</div><div class="step-title">Monthly sessions</div><div class="step-body">One structured hour per month for six months. CV review, interview prep, pipeline to offers — whatever you need most.</div></div>
+      </div>
+    </div>
+
+    <div id="content-mentor" class="tab-content">
+      <div class="section-eyebrow">For mentors</div>
+      <div class="section-title">What to expect</div>
+      <div class="process">
+        <div class="process-step"><div class="step-num">01</div><div class="step-title">Tell us about you</div><div class="step-body">Share your GTM background — where you've worked, what you've built, and the kinds of roles you can speak to authentically.</div></div>
+        <div class="process-step"><div class="step-num">02</div><div class="step-title">One hour a month</div><div class="step-body">That's the commitment. We handle the matching, the scheduling, and the structure so your time is spent on impact, not admin.</div></div>
+        <div class="process-step"><div class="step-num">03</div><div class="step-title">See real results</div><div class="step-body">Track your fellows' progress. Many mentors tell us it's the most rewarding hour of their working month.</div></div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-title" id="form-title">Apply for a fellowship</div>
+      <div class="form-sub" id="form-sub">Takes 3 minutes. Successful candidates become GTM Fellows within 5 working days.</div>
+
+      <div id="fellow-form">
+        <div class="form-grid">
+          <div class="form-field"><label>First name</label><input type="text" placeholder="Aoife"></div>
+          <div class="form-field"><label>Last name</label><input type="text" placeholder="Murphy"></div>
+          <div class="form-field"><label>Email</label><input type="email" placeholder="aoife@email.com"></div>
+          <div class="form-field"><label>University / current role</label><input type="text" placeholder="UCD / Business"></div>
+          <div class="form-field wide">
+            <label>Target GTM role</label>
+            <select>
+              <option>Sales Development Rep (SDR)</option>
+              <option>Account Executive (AE)</option>
+              <option>RevOps / Sales Ops</option>
+              <option>Marketing / Demand Gen</option>
+              <option>Customer Success</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-field wide">
+            <label>Target role type <span style="font-size:11px;color:var(--mid-grey);text-transform:none;letter-spacing:0;font-weight:400;">— select all that apply</span></label>
+            <div class="pill-group">
+              <button type="button" class="pill-opt" aria-pressed="false">Job</button>
+              <button type="button" class="pill-opt" aria-pressed="false">Internship</button>
+              <button type="button" class="pill-opt" aria-pressed="false">Project</button>
+            </div>
+          </div>
+          <div class="form-field wide">
+            <label>I need visa sponsorship to work in my target market</label>
+            <div class="toggle-group" id="visa-group">
+              <button type="button" class="toggle-opt" aria-pressed="false">Yes</button>
+              <button type="button" class="toggle-opt" aria-pressed="false">No</button>
+            </div>
+          </div>
+          <div class="form-field wide"><label>Tell us about your goal</label><textarea placeholder="Where do you want to be in 12 months?"></textarea></div>
+        </div>
+        <button class="submit-btn" id="fellow-submit">Submit fellowship application</button>
+      </div>
+
+      <div id="mentor-form" style="display:none;">
+        <div class="form-grid">
+          <div class="form-field"><label>First name</label><input type="text" placeholder="Ronan"></div>
+          <div class="form-field"><label>Last name</label><input type="text" placeholder="Burke"></div>
+          <div class="form-field"><label>Email</label><input type="email" placeholder="ronan@company.com"></div>
+          <div class="form-field"><label>LinkedIn</label><input type="text" placeholder="linkedin.com/in/ronan"></div>
+          <div class="form-field wide"><label>Current role & company</label><input type="text" placeholder="VP Sales EMEA, Salesforce"></div>
+          <div class="form-field wide"><label>Tell us about your GTM background</label><textarea placeholder="What have you built or led? What kinds of roles can you speak to?"></textarea></div>
+        </div>
+        <button class="submit-btn" id="mentor-submit">Submit application</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARTNER -->
+  <div id="page-partner" class="page">
+    <div class="page-hero">
+      <div class="hero-eyebrow">Partner with Get2</div>
+      <div class="page-hero-title">Invest in the next<br>generation of <span>GTM talent</span></div>
+      <p class="page-hero-sub">We work with universities and companies who believe exceptional sales careers should be built on merit, not luck.</p>
+    </div>
+    <div class="tab-bar">
+      <button id="tab-uni" class="tab-btn active" onclick="showPartnerTab('uni')">We are a university</button>
+      <button id="tab-company" class="tab-btn" onclick="showPartnerTab('company')">We are a company</button>
+    </div>
+    <div id="content-uni" class="tab-content active" style="padding:3rem 2.5rem;">
+      <div class="section-eyebrow">University partnership</div>
+      <div class="section-title">Better outcomes for your graduates</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;">
+        <div>
+          <p class="section-body">We embed directly with your careers team to give students access to practitioner mentors who hiring managers actually respect. Our fellowship has delivered measurable uplift in commercial placement rates across every partner institution.</p>
+          <ul class="bullet-list" style="margin-top:1.5rem;">
+            <li>Co-branded fellowship for your students</li>
+            <li>Dedicated mentor pool matched to your cohort</li>
+            <li>Joint reporting on placements and progression</li>
+            <li>Guest speaker sessions and career events</li>
+            <li>No cost to fellows — ever</li>
+          </ul>
+        </div>
+        <div class="partner-block">
+          <div style="font-size:28px;margin-bottom:1rem;">🎓</div>
+          <div class="partner-block-title">What your fellows get</div>
+          <p class="partner-block-body">Monthly 1:1 sessions with senior GTM leaders. CV and LinkedIn reviews. Mock interviews. Direct warm introductions to hiring companies in our network.</p>
+        </div>
+      </div>
+    </div>
+    <div id="content-company" class="tab-content" style="padding:3rem 2.5rem 0;">
+      <div class="section-eyebrow">Company partnership</div>
+      <div class="section-title">Three ways to work with us</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem;">
+        <div class="service-card"><div class="service-label">Talent pipeline</div><div class="service-title">Recruit GTM fellows</div><p class="service-body">First access to our fellow cohort — motivated, pre-vetted, and already trained by people who know what good GTM looks like. Cut time-to-hire and reduce early attrition.</p><ul class="bullet-list" style="margin-top:1rem;"><li>Exclusive early access to fellows</li><li>Culture-fit pre-screening</li><li>Direct introductions, no agency fees</li></ul></div>
+        <div class="service-card"><div class="service-label">GTM services</div><div class="service-title">Go-to-market advisory</div><p class="service-body">Tap into our mentor network for strategic GTM support — ICP definition, sales process design, or fractional sales leadership.</p><ul class="bullet-list" style="margin-top:1rem;"><li>Project-based engagements</li><li>Fractional sales leadership</li><li>GTM playbook development</li></ul></div>
+        <div class="service-card"><div class="service-label">Brand partnership</div><div class="service-title">Sponsor the fellowship</div><p class="service-body">Align your brand with the next generation of commercial talent. Sponsorship gives you visibility across our university partner network and fellow cohort.</p><ul class="bullet-list" style="margin-top:1rem;"><li>Co-branded events and content</li><li>Campus presence via university partners</li><li>Speaking slots at Get2 events</li></ul></div>
+      </div>
+    </div>
+    <div class="form-section" style="margin-top:2rem;">
+      <div class="form-title">Get in touch</div>
+      <div class="form-sub">Tell us who you are and what you're looking for. We'll come back within 48 hours.</div>
+      <div class="form-grid">
+        <div class="form-field"><label>First name</label><input type="text" placeholder="Ronan"></div>
+        <div class="form-field"><label>Last name</label><input type="text" placeholder="Burke"></div>
+        <div class="form-field"><label>Email</label><input type="email" placeholder="ronan@company.com"></div>
+        <div class="form-field"><label>Organisation</label><input type="text" placeholder="Salesforce / Trinity College"></div>
+        <div class="form-field wide"><label>I am</label><select><option>A university / career services team</option><option>A company looking to recruit GTM fellows</option><option>A company looking for GTM advisory services</option><option>A company interested in brand partnership / sponsorship</option></select></div>
+        <div class="form-field wide"><label>Message</label><textarea placeholder="Tell us a bit about what you're looking for..."></textarea></div>
+      </div>
+      <button class="submit-btn" id="partner-submit">Send message</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+    document.getElementById('page-' + name).classList.add('active');
+    document.getElementById('app').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  function showTab(tab) {
+    document.getElementById('tab-fellow').classList.toggle('active', tab === 'fellow');
+    document.getElementById('tab-mentor').classList.toggle('active', tab === 'mentor');
+    document.getElementById('content-fellow').classList.toggle('active', tab === 'fellow');
+    document.getElementById('content-mentor').classList.toggle('active', tab === 'mentor');
+    document.getElementById('fellow-form').style.display = tab === 'fellow' ? 'block' : 'none';
+    document.getElementById('mentor-form').style.display = tab === 'mentor' ? 'block' : 'none';
+    document.getElementById('form-title').textContent = tab === 'mentor' ? 'Apply as a mentor' : 'Apply for a fellowship';
+    document.getElementById('form-sub').textContent = tab === 'mentor'
+      ? 'One hour a month. Big impact. Tell us about your GTM background.'
+      : 'Takes 3 minutes. Successful candidates become GTM Fellows within 5 working days.';
+  }
+
+  function showPartnerTab(tab) {
+    document.getElementById('tab-uni').classList.toggle('active', tab === 'uni');
+    document.getElementById('tab-company').classList.toggle('active', tab === 'company');
+    document.getElementById('content-uni').classList.toggle('active', tab === 'uni');
+    document.getElementById('content-company').classList.toggle('active', tab === 'company');
+  }
+
+  document.querySelectorAll('.pill-opt').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var pressed = this.getAttribute('aria-pressed') === 'true';
+      this.setAttribute('aria-pressed', pressed ? 'false' : 'true');
+    });
+  });
+
+  var visaBtns = document.querySelectorAll('#visa-group .toggle-opt');
+  visaBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var alreadyPressed = this.getAttribute('aria-pressed') === 'true';
+      visaBtns.forEach(function(b) { b.setAttribute('aria-pressed', 'false'); });
+      if (!alreadyPressed) { this.setAttribute('aria-pressed', 'true'); }
+    });
+  });
+
+  document.getElementById('fellow-submit').addEventListener('click', function() {
+    this.textContent = '✓ Application received — we\'ll be in touch';
+  });
+  document.getElementById('mentor-submit').addEventListener('click', function() {
+    this.textContent = '✓ Application received — we\'ll be in touch';
+  });
+  document.getElementById('partner-submit').addEventListener('click', function() {
+    this.textContent = '✓ Message sent — we\'ll be in touch within 48h';
+  });
+</script>
