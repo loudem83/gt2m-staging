@@ -3,8 +3,8 @@
   @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@400;500&display=swap');
   * { box-sizing: border-box; margin: 0; padding: 0; }
   :root { --navy: #3E2A35; --amber: #FF7F65; --off-white: #FFDDD6; --mid-grey: #848C8E; --light-border: rgba(13,27,42,0.12); }
-  body { font-family: 'Inter', sans-serif; background: var(--off-white); color: var(--navy); }
-  nav { position: sticky; top: 0; z-index: 100; background: #ffffff; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 58px; border-bottom: 2px solid var(--amber); box-shadow: 0 1px 12px rgba(62,42,53,0.08); }
+  body { font-family: 'Inter', sans-serif; background: #FCFAF7; color: var(--navy); }
+  nav { position: sticky; top: 0; z-index: 100; background: #FCFAF7; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 58px; border-bottom: 2px solid var(--amber); box-shadow: 0 1px 12px rgba(62,42,53,0.08); }
   .nav-logo { display: flex; align-items: center; }
   .nav-logo span { color: var(--amber); }
   .nav-links { display: flex; gap: 2rem; list-style: none; }
@@ -37,7 +37,7 @@
   .value-dot { width: 8px; height: 8px; background: var(--amber); margin-top: 7px; flex-shrink: 0; }
   .value-text { font-size: 15px; color: #5A4A52; line-height: 1.6; }
   .value-text strong { color: var(--navy); font-weight: 500; display: block; margin-bottom: 2px; }
-  .stories-section { background: #ffffff; padding: 5rem 2.5rem; }
+  .stories-section { background: #FCFAF7; padding: 5rem 2.5rem; }
   .stories-section .section-title { color: var(--navy); }
   .stories-section .section-eyebrow { color: var(--amber); }
   .stories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 3rem; }
@@ -50,7 +50,7 @@
   .story-name { font-size: 13px; font-weight: 500; color: #3E2A35; }
   .story-role { font-size: 12px; color: var(--mid-grey); }
   .story-tag { display: inline-block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; background: rgba(245,166,35,0.15); color: var(--amber); padding: 3px 8px; margin-bottom: 1rem; }
-  .banner-section { background: #fff; padding: 2.5rem; border-top: 1px solid var(--light-border); border-bottom: 1px solid var(--light-border); }
+  .banner-section { background: #FCFAF7; padding: 2.5rem; border-top: 1px solid var(--light-border); border-bottom: 1px solid var(--light-border); }
   .banner-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-grey); text-align: center; margin-bottom: 1.5rem; }
   .logo-track { display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap; align-items: center; }
   .logo-pill { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: rgba(13,27,42,0.3); }
@@ -59,13 +59,13 @@
   .page-hero-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(36px, 5vw, 56px); color: #fff; letter-spacing: -1px; line-height: 1; }
   .page-hero-title span { color: var(--amber); }
   .page-hero-sub { font-size: 15px; color: rgba(255,255,255,0.55); margin-top: 1rem; max-width: 520px; line-height: 1.7; }
-  .tab-bar { display: flex; border-bottom: 2px solid var(--light-border); padding: 0 2.5rem; background: #fff; }
+  .tab-bar { display: flex; border-bottom: 2px solid var(--light-border); padding: 0 2.5rem; background: #FCFAF7; }
   .tab-btn { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: var(--mid-grey); background: none; border: none; border-bottom: 2px solid transparent; margin-bottom: -2px; padding: 1rem 1.5rem 1rem 0; cursor: pointer; transition: all 0.2s; }
   .tab-btn.active { color: var(--navy); border-bottom-color: var(--amber); }
   .tab-content { display: none; padding: 3rem 2.5rem; }
   .tab-content.active { display: block; }
   .process { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; }
-  .process-step { padding: 1.5rem; border-left: 3px solid var(--amber); background: #fff; }
+  .process-step { padding: 1.5rem; border-left: 3px solid var(--amber); background: #FCFAF7; }
   .step-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 28px; color: rgba(13,27,42,0.1); margin-bottom: 0.5rem; }
   .step-title { font-size: 15px; font-weight: 500; color: var(--navy); margin-bottom: 0.5rem; }
   .step-body { font-size: 13px; color: #6B7280; line-height: 1.6; }
@@ -76,14 +76,14 @@
   .form-field { display: flex; flex-direction: column; gap: 6px; }
   .form-field.wide { grid-column: 1/-1; }
   .form-field label { font-size: 12px; font-weight: 500; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; }
-  .form-field input, .form-field select, .form-field textarea { border: 1px solid var(--light-border); background: #fff; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--navy); padding: 10px 12px; border-radius: 0; outline: none; transition: border-color 0.2s; }
+  .form-field input, .form-field select, .form-field textarea { border: 1px solid var(--light-border); background: #FCFAF7; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--navy); padding: 10px 12px; border-radius: 0; outline: none; transition: border-color 0.2s; }
   .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--navy); }
   .form-field textarea { min-height: 90px; resize: vertical; }
   .pill-group { display: flex; gap: 8px; flex-wrap: wrap; }
-  .pill-opt { padding: 9px 18px; font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 500; color: var(--mid-grey); background-color: #fff; border: 1px solid var(--light-border); cursor: pointer; border-radius: 0; outline: none; -webkit-appearance: none; appearance: none; }
+  .pill-opt { padding: 9px 18px; font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 500; color: var(--mid-grey); background-color: #FCFAF7; border: 1px solid var(--light-border); cursor: pointer; border-radius: 0; outline: none; -webkit-appearance: none; appearance: none; }
   .pill-opt[aria-pressed="true"] { background-color: var(--navy) !important; color: #fff !important; border-color: var(--navy) !important; }
   .toggle-group { display: flex; }
-  .toggle-opt { padding: 9px 28px; font-size: 14px; font-family: 'Inter', sans-serif; font-weight: 500; color: var(--mid-grey); background-color: #fff; border: 1px solid var(--light-border); cursor: pointer; border-radius: 0; outline: none; -webkit-appearance: none; appearance: none; }
+  .toggle-opt { padding: 9px 28px; font-size: 14px; font-family: 'Inter', sans-serif; font-weight: 500; color: var(--mid-grey); background-color: #FCFAF7; border: 1px solid var(--light-border); cursor: pointer; border-radius: 0; outline: none; -webkit-appearance: none; appearance: none; }
   .toggle-opt:first-child { border-right: none; }
   .toggle-opt[aria-pressed="true"] { background-color: var(--navy) !important; color: #fff !important; border-color: var(--navy) !important; }
   .submit-btn { margin-top: 1.5rem; background: var(--navy); color: #fff; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; border: none; padding: 12px 28px; cursor: pointer; border-radius: 0; }
@@ -108,7 +108,7 @@
     font-size: 15px; letter-spacing: -0.3px;
   }
   .brand-fork-label.amber { color: #FF7F65; }
-  .brand-fork-label.teal-label { color: #F0FBBB; }
+  .brand-fork-label.teal-label { color: #F2FFCF; }
   .brand-fork-desc {
     font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6;
   }
@@ -116,32 +116,49 @@
     font-size: 12px; font-weight: 500; margin-top: 0.25rem;
   }
   .brand-fork-btn:not(.teal) .brand-fork-cta { color: #FF7F65; }
-  .brand-fork-btn.teal .brand-fork-cta { color: #F0FBBB; }
+  .brand-fork-btn.teal .brand-fork-cta { color: #F2FFCF; }
 
 
   .proof-banner { padding: 1.4rem 2.5rem; display: flex; align-items: center; gap: 2rem; overflow: hidden; }
-  .proof-banner.companies { background: #ffffff; border-top: 1px solid var(--light-border); }
-  .proof-banner.universities { background: #ffffff; border-top: 1px solid var(--light-border); border-bottom: 1px solid var(--light-border); }
+  .proof-banner.companies { background: #FCFAF7; border-top: 1px solid var(--light-border); }
+  .proof-banner.universities { background: #FCFAF7; border-top: 1px solid var(--light-border); border-bottom: 1px solid var(--light-border); }
   .proof-label-side { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-grey); font-weight: 500; white-space: nowrap; flex-shrink: 0; padding-right: 1.5rem; border-right: 1px solid var(--light-border); }
   .proof-track-wrapper { overflow: hidden; flex: 1; position: relative; }
   .proof-banner.companies .proof-track-wrapper::before { content:''; position:absolute; top:0; bottom:0; left:0; width:40px; background: linear-gradient(to right, #fff, transparent); z-index:2; pointer-events:none; }
   .proof-banner.companies .proof-track-wrapper::after { content:''; position:absolute; top:0; bottom:0; right:0; width:40px; background: linear-gradient(to left, #fff, transparent); z-index:2; pointer-events:none; }
-  .proof-banner.universities .proof-track-wrapper::before { content:''; position:absolute; top:0; bottom:0; left:0; width:40px; background: linear-gradient(to right, #ffffff, transparent); z-index:2; pointer-events:none; }
-  .proof-banner.universities .proof-track-wrapper::after { content:''; position:absolute; top:0; bottom:0; right:0; width:40px; background: linear-gradient(to left, #ffffff, transparent); z-index:2; pointer-events:none; }
+  .proof-banner.universities .proof-track-wrapper::before { content:''; position:absolute; top:0; bottom:0; left:0; width:40px; background: linear-gradient(to right, #FCFAF7, transparent); z-index:2; pointer-events:none; }
+  .proof-banner.universities .proof-track-wrapper::after { content:''; position:absolute; top:0; bottom:0; right:0; width:40px; background: linear-gradient(to left, #FCFAF7, transparent); z-index:2; pointer-events:none; }
   .proof-track { display: flex; gap: 3rem; align-items: center; animation: scroll-left 24s linear infinite; width: max-content; }
   .proof-track.slow { animation-duration: 30s; }
   .proof-track:hover { animation-play-state: paused; }
   @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
   .proof-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: rgba(62,42,53,0.3); white-space: nowrap; }
 
+
+  .apply-btn {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 11px 28px;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+    letter-spacing: 0.3px;
+    border: none; cursor: pointer; border-radius: 0;
+    transition: opacity 0.2s, transform 0.15s;
+    margin-top: 2rem;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .apply-btn:hover { opacity: 0.85; transform: translateY(-1px); }
+  .apply-btn.market { background: #FF7F65; color: #3E2A35; }
+  .apply-btn.tech   { background: #F2FFCF; color: #3E2A35; }
+  .apply-btn.stories { background: #3E2A35; color: #FCFAF7; }
+
   .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
   .bullet-list li { font-size: 14px; color: #5A4A52; display: flex; gap: 8px; align-items: flex-start; }
   .bullet-list li::before { content: '→'; color: var(--amber); font-weight: 700; flex-shrink: 0; }
-  .service-card { padding: 1.5rem; border: 1px solid var(--light-border); background: #fff; }
+  .service-card { padding: 1.5rem; border: 1px solid var(--light-border); background: #FCFAF7; }
   .service-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--amber); font-weight: 500; margin-bottom: 0.75rem; }
   .service-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 17px; color: var(--navy); margin-bottom: 0.5rem; }
   .service-body { font-size: 13px; color: #6B7280; line-height: 1.6; }
-  .partner-block { padding: 2rem; border: 1px solid var(--light-border); background: #fff; }
+  .partner-block { padding: 2rem; border: 1px solid var(--light-border); background: #FCFAF7; }
   .partner-block-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; color: var(--navy); margin-bottom: 0.75rem; }
   .partner-block-body { font-size: 14px; color: #6B7280; line-height: 1.7; }
 </style>
@@ -160,20 +177,26 @@
   <!-- HOME -->
   <div id="page-home" class="page active">
     <div class="hero">
-      <div class="hero-eyebrow">Sales & GTM career development</div>
-      <div class="hero-headline"><span class="stencil">Get</span><span style="color:#fff">2</span></div>
-      <p class="hero-sub">We connect ambitious graduates and career-changers with senior sales and go-to-market leaders. Real mentors. Real fellows. Real growth.</p>
-      <div class="hero-paths" style="gap:1.5rem; margin-top:2.5rem;">
-        <button class="brand-fork-btn" onclick="showPage('partner')">
-          <div class="brand-fork-label amber">GET2MARKET</div>
-          <div class="brand-fork-desc">Connects senior go-to-market leaders through events, peer networks, and thought leadership.</div>
-          <div class="brand-fork-cta">Join the community →</div>
-        </button>
-        <button class="brand-fork-btn teal" onclick="showPage('mentoring');showTab('fellow')">
-          <div class="brand-fork-label teal-label">GET2TECH</div>
-          <div class="brand-fork-desc">Connects students and career-changers with the mentors, bootcamps, and opportunities to get there.</div>
-          <div class="brand-fork-cta">Apply for a fellowship →</div>
-        </button>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
+        <!-- LEFT: headline -->
+        <div>
+          <div class="hero-eyebrow">Sales & GTM career development</div>
+          <div class="hero-headline"><span class="stencil">Get</span><span style="color:#fff">2</span></div>
+          <p class="hero-sub">We connect ambitious graduates and career-changers with senior sales and go-to-market leaders. Real mentors. Real fellows. Real growth.</p>
+        </div>
+        <!-- RIGHT: brand blocks -->
+        <div style="display:flex; flex-direction:column; gap:1.25rem;">
+          <div>
+            <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:#FF7F65; margin-bottom:0.6rem;">GET2MARKET</div>
+            <p style="font-size:15px; color:rgba(255,220,210,0.65); line-height:1.7; margin-bottom:0.85rem;">Connects senior go-to-market leaders through events, peer networks, and thought leadership.</p>
+            <a onclick="showPage('partner')" style="font-size:13px; font-weight:600; color:#FF7F65; cursor:pointer; text-decoration:none; border-bottom:1px solid rgba(255,127,101,0.4); padding-bottom:1px;">Learn more →</a>
+          </div>
+          <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:1.25rem;">
+            <div style="font-family:'Syne',sans-serif; font-weight:800; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:#F2FFCF; margin-bottom:0.6rem;">GET2TECH</div>
+            <p style="font-size:15px; color:rgba(255,220,210,0.65); line-height:1.7; margin-bottom:0.85rem;">Connects students and career-changers with the mentors, bootcamps, and opportunities to get there.</p>
+            <a onclick="showPage('mentoring');showTab('fellow')" style="font-size:13px; font-weight:600; color:#F2FFCF; cursor:pointer; text-decoration:none; border-bottom:1px solid rgba(242,255,207,0.4); padding-bottom:1px;">Learn more →</a>
+          </div>
+        </div>
       </div>
     </div></div>
 
@@ -233,7 +256,7 @@
       </div>
     </div>
 
-    <div class="section">
+    <div class="section" style="background:#F2FFCF;">
       <div class="mission-grid">
         <div>
           <div class="section-eyebrow">Get2Tech</div>
@@ -247,6 +270,7 @@
           <div class="value-item"><div class="value-dot"></div><div class="value-text"><strong>University partnerships</strong>Working directly with career services to reach students early.</div></div>
         </div>
       </div>
+      <button class="apply-btn tech" onclick="showPage('mentoring');showTab('fellow')">Apply →</button>
     </div>
     
 
