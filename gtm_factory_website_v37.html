@@ -1,0 +1,517 @@
+
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;700;800&family=Inter:wght@400;500&display=swap');
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --navy: #3E2A35; --amber: #FF7F65; --off-white: #FFDDD6; --mid-grey: #848C8E; --light-border: rgba(13,27,42,0.12); }
+  html, body { font-family: 'Inter', sans-serif; background: #FCFAF7; color: var(--navy); scroll-behavior: auto; }
+  nav { position: relative; top: 0; z-index: 100; background: #FCFAF7; display: flex; align-items: center; justify-content: space-between; padding: 0 2.5rem; height: 58px; border-bottom: 2px solid var(--amber); box-shadow: 0 1px 12px rgba(62,42,53,0.08); }
+  .nav-logo { display: flex; align-items: center; padding-top: 4px; }
+  .nav-logo span { color: var(--amber); }
+  .nav-links { display: flex; gap: 2rem; list-style: none; }
+  .nav-links a { font-size: 13px; font-weight: 500; color: rgba(62,42,53,0.6); text-decoration: none; cursor: pointer; transition: color 0.2s; }
+  .nav-links a:hover { color: #3E2A35; }
+  .nav-cta { background: var(--amber); color: var(--navy); font-size: 13px; font-weight: 500; font-family: 'Inter', sans-serif; border: none; border-radius: 0; padding: 8px 18px; cursor: pointer; }
+  .page { display: none; position: relative; } #app {}
+  .page.active { display: block; position: relative; }
+  .hero { background: var(--navy); padding: 5rem 2.5rem 4rem; }
+  .hero-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); font-weight: 500; margin-bottom: 1.5rem; font-family: 'Inter', sans-serif; }
+  .hero-headline { font-family: 'Inter', sans-serif; font-weight: 800; font-size: clamp(52px, 8vw, 88px); line-height: 0.92; color: #fff; margin-bottom: 2rem; letter-spacing: -2px; }
+  .hero-headline .stencil { color: var(--amber); }
+  .hero-sub { font-size: 16px; color: rgba(255,220,210,0.75); max-width: 480px; line-height: 1.7; margin-bottom: 3rem; }
+  .hero-paths { display: flex; gap: 1rem; flex-wrap: wrap; }
+  .path-btn { display: flex; align-items: center; gap: 10px; padding: 14px 22px; font-size: 14px; font-weight: 500; font-family: 'Inter', sans-serif; border: 1px solid rgba(255,255,255,0.2); background: transparent; color: #fff; cursor: pointer; transition: all 0.2s; border-radius: 0; }
+  .path-btn:hover { background: rgba(255,255,255,0.08); }
+  .path-btn.primary { background: var(--amber); border-color: var(--amber); color: var(--navy); }
+  .stats-bar { background: var(--amber); display: flex; justify-content: center; }
+  .stat-item { padding: 1.5rem 3rem; text-align: center; border-right: 1px solid rgba(13,27,42,0.15); }
+  .stat-item:last-child { border-right: none; }
+  .stat-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 28px; color: var(--navy); }
+  .stat-label { font-size: 11px; text-transform: uppercase; letter-spacing: 1px; color: rgba(13,27,42,0.6); margin-top: 2px; }
+  .section { padding: 5rem 2.5rem; }
+  .section-eyebrow { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--amber); font-weight: 500; margin-bottom: 1rem; }
+  .section-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 32px; color: var(--navy); margin-bottom: 1.5rem; letter-spacing: -0.5px; }
+  .section-body { font-size: 16px; color: #5A4A52; line-height: 1.8; max-width: 640px; }
+  .mission-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 3rem; align-items: start; }
+  .mission-values { display: flex; flex-direction: column; gap: 1.5rem; margin-top: 1rem; }
+  .value-item { display: flex; gap: 1rem; align-items: flex-start; }
+  .value-dot { width: 8px; height: 8px; background: var(--amber); margin-top: 7px; flex-shrink: 0; }
+  .value-text { font-size: 15px; color: #5A4A52; line-height: 1.6; }
+  .value-text strong { color: var(--navy); font-weight: 500; display: block; margin-bottom: 2px; }
+  .stories-section { background: #FCFAF7; padding: 5rem 2.5rem; }
+  .stories-section .section-title { color: var(--navy); }
+  .stories-section .section-eyebrow { color: var(--amber); }
+  .stories-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0; margin-top: 3rem; }
+  .story-card:first-child { border-left: none; }
+  .story-card { background: transparent; border: none; padding: 1.75rem 2rem; border-left: 1px solid rgba(62,42,53,0.12); }
+  .story-quote { font-size: 15px; color: rgba(62,42,53,0.75); line-height: 1.7; margin-bottom: 1.5rem; font-style: italic; }
+  .story-quote::before { content: '"'; color: var(--amber); font-size: 32px; font-family: 'Syne', sans-serif; line-height: 0; vertical-align: -10px; margin-right: 4px; }
+  .story-author { display: flex; align-items: center; gap: 12px; }
+  .story-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--amber); display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 700; color: var(--navy); flex-shrink: 0; }
+  .story-name { font-size: 13px; font-weight: 500; color: #3E2A35; }
+  .story-role { font-size: 12px; color: var(--mid-grey); }
+  .story-tag { display: inline-block; font-size: 10px; letter-spacing: 1px; text-transform: uppercase; background: rgba(245,166,35,0.15); color: var(--amber); padding: 3px 8px; margin-bottom: 1rem; }
+  .banner-section { background: #FCFAF7; padding: 2.5rem; border-top: 1px solid var(--light-border); border-bottom: 1px solid var(--light-border); }
+  .banner-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-grey); text-align: center; margin-bottom: 1.5rem; }
+  .logo-track { display: flex; gap: 3rem; justify-content: center; flex-wrap: wrap; align-items: center; }
+  .logo-pill { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 15px; color: rgba(13,27,42,0.3); }
+  .divider { height: 1px; background: var(--light-border); margin: 0 2.5rem; }
+  .page-hero { background: var(--navy); padding: 4rem 2.5rem 3rem; }
+  .page-hero-title { font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(36px, 5vw, 56px); color: #fff; letter-spacing: -1px; line-height: 1; }
+  .page-hero-title span { color: var(--amber); }
+  .page-hero-sub { font-size: 15px; color: rgba(255,255,255,0.55); margin-top: 1rem; max-width: 520px; line-height: 1.7; }
+  .tab-bar { display: flex; border-bottom: 2px solid var(--light-border); padding: 0 2.5rem; background: #FCFAF7; }
+  .tab-btn { font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; color: var(--mid-grey); background: none; border: none; border-bottom: 2px solid transparent; margin-bottom: -2px; padding: 1rem 1.5rem 1rem 0; cursor: pointer; transition: all 0.2s; }
+  .tab-btn.active { color: var(--navy); border-bottom-color: var(--amber); }
+  .tab-content { display: none; padding: 3rem 2.5rem; }
+  .tab-content.active { display: block; }
+  .process { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; margin-top: 2rem; }
+  .process-step { padding: 1.5rem; border-left: 3px solid var(--amber); background: #FCFAF7; }
+  .step-num { font-family: 'Syne', sans-serif; font-weight: 800; font-size: 28px; color: rgba(13,27,42,0.1); margin-bottom: 0.5rem; }
+  .step-title { font-size: 15px; font-weight: 500; color: var(--navy); margin-bottom: 0.5rem; }
+  .step-body { font-size: 13px; color: #6B7280; line-height: 1.6; }
+  .form-section { background: var(--off-white); padding: 3rem 2.5rem; border-top: 1px solid var(--light-border); }
+  .form-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 22px; color: var(--navy); margin-bottom: 0.5rem; }
+  .form-sub { font-size: 14px; color: var(--mid-grey); margin-bottom: 2rem; }
+  .form-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; max-width: 600px; }
+  .form-field { display: flex; flex-direction: column; gap: 6px; }
+  .form-field.wide { grid-column: 1/-1; }
+  .form-field label { font-size: 12px; font-weight: 500; color: var(--navy); text-transform: uppercase; letter-spacing: 0.5px; }
+  .form-field input, .form-field select, .form-field textarea { border: 1px solid var(--light-border); background: #FCFAF7; font-family: 'Inter', sans-serif; font-size: 14px; color: var(--navy); padding: 10px 12px; border-radius: 0; outline: none; transition: border-color 0.2s; }
+  .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color: var(--navy); }
+  .form-field textarea { min-height: 90px; resize: vertical; }
+  .pill-group { display: flex; gap: 8px; flex-wrap: wrap; }
+  .pill-opt { padding: 9px 18px; font-size: 13px; font-family: 'Inter', sans-serif; font-weight: 500; color: var(--mid-grey); background-color: #FCFAF7; border: 1px solid var(--light-border); cursor: pointer; border-radius: 0; outline: none; -webkit-appearance: none; appearance: none; }
+  .pill-opt[aria-pressed="true"] { background-color: var(--navy) !important; color: #fff !important; border-color: var(--navy) !important; }
+  .toggle-group { display: flex; }
+  .toggle-opt { padding: 9px 28px; font-size: 14px; font-family: 'Inter', sans-serif; font-weight: 500; color: var(--mid-grey); background-color: #FCFAF7; border: 1px solid var(--light-border); cursor: pointer; border-radius: 0; outline: none; -webkit-appearance: none; appearance: none; }
+  .toggle-opt:first-child { border-right: none; }
+  .toggle-opt[aria-pressed="true"] { background-color: var(--navy) !important; color: #fff !important; border-color: var(--navy) !important; }
+  .submit-btn { margin-top: 1.5rem; background: var(--navy); color: #fff; font-family: 'Inter', sans-serif; font-size: 14px; font-weight: 500; border: none; padding: 12px 28px; cursor: pointer; border-radius: 0; }
+  .submit-btn:hover { opacity: 0.85; }
+
+  .brand-fork-btn {
+    display: flex; flex-direction: column; align-items: flex-start;
+    gap: 0.6rem;
+    padding: 1.75rem 2rem;
+    background: rgba(255,255,255,0.04);
+    border: 1px solid rgba(255,255,255,0.12);
+    cursor: pointer; text-align: left;
+    transition: background 0.2s, border-color 0.2s;
+    width: 320px; min-height: 140px;
+    border-radius: 0;
+    font-family: 'Inter', sans-serif;
+  }
+  .brand-fork-btn:hover { background: rgba(255,255,255,0.08); border-color: rgba(255,255,255,0.25); }
+  .brand-fork-btn.teal:hover { border-color: rgba(220,247,99,0.5); }
+  .brand-fork-label {
+    font-family: 'Syne', sans-serif; font-weight: 800;
+    font-size: 15px; letter-spacing: -0.3px;
+  }
+  .brand-fork-label.amber { color: #FF7F65; }
+  .brand-fork-label.teal-label { color: #F2FFCF; }
+  .brand-fork-desc {
+    font-size: 13px; color: rgba(255,255,255,0.55); line-height: 1.6;
+  }
+  .brand-fork-cta {
+    font-size: 12px; font-weight: 500; margin-top: 0.25rem;
+  }
+  .brand-fork-btn:not(.teal) .brand-fork-cta { color: #FF7F65; }
+  .brand-fork-btn.teal .brand-fork-cta { color: #F2FFCF; }
+
+
+  .proof-banner { padding: 1.4rem 2.5rem; display: flex; align-items: center; gap: 2rem; overflow: hidden; }
+  .proof-banner.companies { background: #FCFAF7; border-top: 1px solid var(--light-border); }
+  .proof-banner.universities { background: #FCFAF7; border-top: 1px solid var(--light-border); border-bottom: 1px solid var(--light-border); }
+  .proof-label-side { font-size: 10px; letter-spacing: 2px; text-transform: uppercase; color: var(--mid-grey); font-weight: 500; white-space: nowrap; flex-shrink: 0; padding-right: 1.5rem; border-right: 1px solid var(--light-border); }
+  .proof-track-wrapper { overflow: hidden; flex: 1; position: relative; }
+  .proof-banner.companies .proof-track-wrapper::before { content:''; position:absolute; top:0; bottom:0; left:0; width:40px; background: linear-gradient(to right, #fff, transparent); z-index:2; pointer-events:none; }
+  .proof-banner.companies .proof-track-wrapper::after { content:''; position:absolute; top:0; bottom:0; right:0; width:40px; background: linear-gradient(to left, #fff, transparent); z-index:2; pointer-events:none; }
+  .proof-banner.universities .proof-track-wrapper::before { content:''; position:absolute; top:0; bottom:0; left:0; width:40px; background: linear-gradient(to right, #FCFAF7, transparent); z-index:2; pointer-events:none; }
+  .proof-banner.universities .proof-track-wrapper::after { content:''; position:absolute; top:0; bottom:0; right:0; width:40px; background: linear-gradient(to left, #FCFAF7, transparent); z-index:2; pointer-events:none; }
+  .proof-track { display: flex; gap: 3rem; align-items: center; animation: scroll-left 24s linear infinite; width: max-content; }
+  .proof-track.slow { animation-duration: 30s; }
+  .proof-track:hover { animation-play-state: paused; }
+  @keyframes scroll-left { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+  .proof-name { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 13px; color: rgba(62,42,53,0.3); white-space: nowrap; }
+
+
+  .apply-btn {
+    display: inline-flex; align-items: center; gap: 6px;
+    font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 600;
+    letter-spacing: 1px; text-transform: uppercase;
+    background: none; border: none; cursor: pointer;
+    padding: 0; margin-top: 2rem;
+    text-decoration: none;
+    padding-bottom: 2px;
+    transition: opacity 0.2s;
+  }
+  .apply-btn:hover { opacity: 0.65; }
+  .apply-btn.market {
+    color: #FF7F65;
+    border-bottom: 1px solid rgba(255,127,101,0.45);
+  }
+  .apply-btn.tech {
+    color: #3E2A35;
+    border-bottom: 1px solid rgba(62,42,53,0.35);
+  }
+  .apply-btn.stories {
+    color: #3E2A35;
+    border-bottom: 1px solid rgba(62,42,53,0.35);
+  }
+
+  .bullet-list { list-style: none; display: flex; flex-direction: column; gap: 8px; margin-top: 1rem; }
+  .bullet-list li { font-size: 14px; color: #5A4A52; display: flex; gap: 8px; align-items: flex-start; }
+  .bullet-list li::before { content: '→'; color: var(--amber); font-weight: 700; flex-shrink: 0; }
+  .service-card { padding: 1.5rem; border: 1px solid var(--light-border); background: #FCFAF7; }
+  .service-label { font-size: 10px; text-transform: uppercase; letter-spacing: 1.5px; color: var(--amber); font-weight: 500; margin-bottom: 0.75rem; }
+  .service-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 17px; color: var(--navy); margin-bottom: 0.5rem; }
+  .service-body { font-size: 13px; color: #6B7280; line-height: 1.6; }
+  .partner-block { padding: 2rem; border: 1px solid var(--light-border); background: #FCFAF7; }
+  .partner-block-title { font-family: 'Syne', sans-serif; font-weight: 700; font-size: 18px; color: var(--navy); margin-bottom: 0.75rem; }
+  .partner-block-body { font-size: 14px; color: #6B7280; line-height: 1.7; }
+</style>
+
+<div id="app"><div id="scroll-top-anchor" style="position:absolute;top:0;left:0;height:1px;width:1px;"></div>
+  <nav>
+    <div class="nav-logo"><img src="data:image/png;base64,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" alt="Get2" style="height:43px;display:block;filter:brightness(0) saturate(100%);position:relative;top:3px;"></div>
+    <ul class="nav-links">
+      <li><a onclick="showPage('home')">Home</a></li>
+      <li><a onclick="showPage('partner')">I'm a GTM Professional</a></li>
+      <li><a onclick="showPage('mentoring');showTab('fellow')">I'm a Student</a></li>
+      <li><a onclick="showPage('partner')">Partners</a></li>
+    </ul>
+  </nav>
+
+  <!-- HOME -->
+  <div id="page-home" class="page active">
+    <div class="hero">
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:4rem; align-items:center;">
+        <!-- LEFT: headline -->
+        <div>
+          <div class="hero-eyebrow">Sales & GTM career development</div>
+          <div class="hero-headline"><span class="stencil">Get</span><span style="color:#fff">2</span></div>
+          <p class="hero-sub">We connect ambitious graduates and career-changers with senior sales and go-to-market leaders. Real mentors. Real fellows. Real growth.</p>
+        </div>
+        <!-- RIGHT: brand blocks -->
+        <div style="display:flex; flex-direction:column; gap:1.25rem;">
+          <div>
+            <div style="font-family:'Inter',sans-serif; font-weight:700; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:#FF7F65; margin-bottom:0.6rem;">GET2MARKET</div>
+            <p style="font-size:15px; color:rgba(255,220,210,0.65); line-height:1.7; margin-bottom:0.85rem;">Connects senior go-to-market leaders through events, peer networks, and thought leadership.</p>
+            <a onclick="showPage('partner')" style="font-size:13px; font-weight:600; color:#FF7F65; cursor:pointer; text-decoration:none; border-bottom:1px solid rgba(255,127,101,0.4); padding-bottom:1px;">Learn more →</a>
+          </div>
+          <div style="border-top:1px solid rgba(255,255,255,0.08); padding-top:1.25rem;">
+            <div style="font-family:'Inter',sans-serif; font-weight:700; font-size:13px; letter-spacing:1.5px; text-transform:uppercase; color:#F2FFCF; margin-bottom:0.6rem;">GET2TECH</div>
+            <p style="font-size:15px; color:rgba(255,220,210,0.65); line-height:1.7; margin-bottom:0.85rem;">Connects students and career-changers with the mentors, bootcamps, and opportunities to get there.</p>
+            <a onclick="showPage('mentoring');showTab('fellow')" style="font-size:13px; font-weight:600; color:#F2FFCF; cursor:pointer; text-decoration:none; border-bottom:1px solid rgba(242,255,207,0.4); padding-bottom:1px;">Learn more →</a>
+          </div>
+        </div>
+      </div>
+    </div></div>
+
+    <!-- COMPANY ROLLING BANNER -->
+    <div class="proof-banner companies">
+      <div class="proof-label-side">Our members work at</div>
+      <div class="proof-track-wrapper">
+        <div class="proof-track">
+          <span class="proof-name">Salesforce</span>
+          <span class="proof-name">HubSpot</span>
+          <span class="proof-name">Stripe</span>
+          <span class="proof-name">Workday</span>
+          <span class="proof-name">Gartner</span>
+          <span class="proof-name">LinkedIn</span>
+          <span class="proof-name">Oracle</span>
+          <span class="proof-name">Zendesk</span>
+          <span class="proof-name">Intercom</span>
+          <span class="proof-name">SAP</span>
+          <!-- duplicate for seamless loop -->
+          <span class="proof-name">Salesforce</span>
+          <span class="proof-name">HubSpot</span>
+          <span class="proof-name">Stripe</span>
+          <span class="proof-name">Workday</span>
+          <span class="proof-name">Gartner</span>
+          <span class="proof-name">LinkedIn</span>
+          <span class="proof-name">Oracle</span>
+          <span class="proof-name">Zendesk</span>
+          <span class="proof-name">Intercom</span>
+          <span class="proof-name">SAP</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- UNIVERSITY ROLLING BANNER -->
+    <div class="proof-banner universities">
+      <div class="proof-label-side">University partners</div>
+      <div class="proof-track-wrapper">
+        <div class="proof-track slow">
+          <span class="proof-name">University College Dublin</span>
+          <span class="proof-name">Trinity College Dublin</span>
+          <span class="proof-name">DCU</span>
+          <span class="proof-name">Maynooth University</span>
+          <span class="proof-name">RCSI</span>
+          <span class="proof-name">Griffith College</span>
+          <span class="proof-name">UCC</span>
+          <span class="proof-name">University of Limerick</span>
+          <!-- duplicate for seamless loop -->
+          <span class="proof-name">University College Dublin</span>
+          <span class="proof-name">Trinity College Dublin</span>
+          <span class="proof-name">DCU</span>
+          <span class="proof-name">Maynooth University</span>
+          <span class="proof-name">RCSI</span>
+          <span class="proof-name">Griffith College</span>
+          <span class="proof-name">UCC</span>
+          <span class="proof-name">University of Limerick</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="section" style="background:#F2FFCF; padding:5rem 2.5rem;">
+      <div class="mission-grid">
+        <div>
+          <div class="section-eyebrow">Get2Tech</div>
+          <div class="section-title">Breaking into sales shouldn't depend on who you know</div>
+          <p class="section-body">Get2Tech was built on a simple belief: that the best sales talent isn't always in the best rooms. We exist to change that — by pairing driven fellows with mentors who've built and scaled GTM teams at the highest level.</p>
+        </div>
+        <div class="mission-values">
+          <div class="value-item"><div class="value-dot"></div><div class="value-text"><strong>Access over pedigree</strong>Your potential matters more than your network. We open doors.</div></div>
+          <div class="value-item"><div class="value-dot"></div><div class="value-text"><strong>Practitioners, not coaches</strong>Every mentor has done the job — VP Sales, RevOps, SDR leaders.</div></div>
+          <div class="value-item"><div class="value-dot"></div><div class="value-text"><strong>Outcomes, not activity</strong>We measure success by job offers and career progression, full stop.</div></div>
+          <div class="value-item"><div class="value-dot"></div><div class="value-text"><strong>University partnerships</strong>Working directly with career services to reach students early.</div></div>
+        </div>
+      </div>
+      <button class="apply-btn tech" onclick="showPage('mentoring');showTab('fellow')">Apply →</button>
+    </div>
+    
+
+
+    <!-- GET2MARKET MISSION -->
+    <div class="section" style="background:#3E2A35; padding:5rem 2.5rem;">
+      <div class="mission-grid">
+        <div>
+          <div class="section-eyebrow" style="color:#FF7F65;">Get2Market</div>
+          <div class="section-title" style="color:#fff;">Where senior GTM leaders connect, learn, and lead</div>
+          <p class="section-body" style="color:rgba(255,255,255,0.55);">Get2Market is the community for experienced go-to-market leaders — VPs, RevOps heads, and commercial founders who want to stay sharp, share hard-won knowledge, and shape the next generation of talent.</p>
+        </div>
+        <div class="mission-values">
+          <div class="value-item"><div class="value-dot" style="background:#FF7F65;"></div><div class="value-text" style="color:rgba(255,255,255,0.7);"><strong style="color:#fff;">Monthly events & roundtables</strong>Curated conversations with peers who've been in the room.</div></div>
+          <div class="value-item"><div class="value-dot" style="background:#FF7F65;"></div><div class="value-text" style="color:rgba(255,255,255,0.7);"><strong style="color:#fff;">Peer problem-solving</strong>Bring your real GTM challenges. Leave with real answers.</div></div>
+          <div class="value-item"><div class="value-dot" style="background:#FF7F65;"></div><div class="value-text" style="color:rgba(255,255,255,0.7);"><strong style="color:#fff;">Thought leadership</strong>Contribute to the GTM conversation that matters.</div></div>
+          <div class="value-item"><div class="value-dot" style="background:#FF7F65;"></div><div class="value-text" style="color:rgba(255,255,255,0.7);"><strong style="color:#fff;">Corporate partnerships</strong>Connect with organisations investing in GTM excellence.</div></div>
+        </div>
+      </div>
+      <button class="apply-btn market" onclick="showPage('partner')">Apply →</button>
+    </div>
+
+    <div class="divider"></div>
+    <div class="stories-section">
+      <div class="section-eyebrow">Success stories</div>
+      <div class="section-title">From application to offer letter</div>
+      <div class="stories-grid">
+        <div class="story-card"><div class="story-tag">Get2 Fellow</div><div class="story-quote">Get2 connected me with a VP of Sales at a Series B startup. Three months later I had my first AE role. I wouldn't have known where to start without them.</div><div class="story-author"><div class="story-avatar">AM</div><div><div class="story-name">Aoife Murphy</div><div class="story-role">AE @ Stripe, Dublin</div></div></div></div>
+        <div class="story-card"><div class="story-tag">University</div><div class="story-quote">Our students come out of the Get2 fellowship with a confidence and industry vocabulary that used to take two years on the job to develop. It's been transformative for our placement rates.</div><div class="story-author"><div class="story-avatar">DC</div><div><div class="story-name">Dr. Claire Doyle</div><div class="story-role">Head of Careers, UCD</div></div></div></div>
+        <div class="story-card"><div class="story-tag">Mentor</div><div class="story-quote">I wish something like this existed when I was starting out. The time commitment is manageable and the impact on these young careers is real. It's the best hour of my week.</div><div class="story-author"><div class="story-avatar">RB</div><div><div class="story-name">Ronan Burke</div><div class="story-role">VP Sales EMEA, Salesforce</div></div></div></div>
+      </div>
+      <div style="margin-top:2.5rem;">
+        <button class="apply-btn stories">More stories →</button>
+      </div>
+    </div>
+    
+
+    
+  </div>
+
+  <!-- FELLOWSHIP -->
+  <div id="page-mentoring" class="page">
+    <div class="page-hero">
+      <div class="hero-eyebrow">Get2 fellowship</div>
+      <div class="page-hero-title">Your <span>GTM career</span><br>starts here</div>
+      <p class="page-hero-sub">Whether you're applying for a fellowship or giving back as a mentor, this is where it begins.</p>
+    </div>
+    <div class="tab-bar">
+      <button id="tab-fellow" class="tab-btn active" onclick="showTab('fellow')">Apply for a fellowship</button>
+      <button id="tab-mentor" class="tab-btn" onclick="showTab('mentor')">Become a mentor</button>
+    </div>
+
+    <div id="content-fellow" class="tab-content active">
+      <div class="section-eyebrow">The fellowship</div>
+      <div class="section-title">What to expect as a GTM Fellow</div>
+      <div class="process">
+        <div class="process-step"><div class="step-num">01</div><div class="step-title">Apply in 5 minutes</div><div class="step-body">Tell us about your background, career goals, and what kind of GTM role you're targeting. No CV required at this stage.</div></div>
+        <div class="process-step"><div class="step-num">02</div><div class="step-title">Get matched</div><div class="step-body">We match each fellow with a mentor whose experience aligns with where they want to go — not just what they studied.</div></div>
+        <div class="process-step"><div class="step-num">03</div><div class="step-title">Monthly sessions</div><div class="step-body">One structured hour per month for six months. CV review, interview prep, pipeline to offers — whatever you need most.</div></div>
+      </div>
+    </div>
+
+    <div id="content-mentor" class="tab-content">
+      <div class="section-eyebrow">For mentors</div>
+      <div class="section-title">What to expect</div>
+      <div class="process">
+        <div class="process-step"><div class="step-num">01</div><div class="step-title">Tell us about you</div><div class="step-body">Share your GTM background — where you've worked, what you've built, and the kinds of roles you can speak to authentically.</div></div>
+        <div class="process-step"><div class="step-num">02</div><div class="step-title">One hour a month</div><div class="step-body">That's the commitment. We handle the matching, the scheduling, and the structure so your time is spent on impact, not admin.</div></div>
+        <div class="process-step"><div class="step-num">03</div><div class="step-title">See real results</div><div class="step-body">Track your fellows' progress. Many mentors tell us it's the most rewarding hour of their working month.</div></div>
+      </div>
+    </div>
+
+    <div class="form-section">
+      <div class="form-title" id="form-title">Apply for a fellowship</div>
+      <div class="form-sub" id="form-sub">Takes 3 minutes. Successful candidates become GTM Fellows within 5 working days.</div>
+
+      <div id="fellow-form">
+        <div class="form-grid">
+          <div class="form-field"><label>First name</label><input type="text" placeholder="Aoife"></div>
+          <div class="form-field"><label>Last name</label><input type="text" placeholder="Murphy"></div>
+          <div class="form-field"><label>Email</label><input type="email" placeholder="aoife@email.com"></div>
+          <div class="form-field"><label>University / current role</label><input type="text" placeholder="UCD / Business"></div>
+          <div class="form-field wide">
+            <label>Target GTM role</label>
+            <select>
+              <option>Sales Development Rep (SDR)</option>
+              <option>Account Executive (AE)</option>
+              <option>RevOps / Sales Ops</option>
+              <option>Marketing / Demand Gen</option>
+              <option>Customer Success</option>
+              <option>Not sure yet</option>
+            </select>
+          </div>
+          <div class="form-field wide">
+            <label>Target role type <span style="font-size:11px;color:var(--mid-grey);text-transform:none;letter-spacing:0;font-weight:400;">— select all that apply</span></label>
+            <div class="pill-group">
+              <button type="button" class="pill-opt" aria-pressed="false">Job</button>
+              <button type="button" class="pill-opt" aria-pressed="false">Internship</button>
+              <button type="button" class="pill-opt" aria-pressed="false">Project</button>
+            </div>
+          </div>
+          <div class="form-field wide">
+            <label>I need visa sponsorship to work in my target market</label>
+            <div class="toggle-group" id="visa-group">
+              <button type="button" class="toggle-opt" aria-pressed="false">Yes</button>
+              <button type="button" class="toggle-opt" aria-pressed="false">No</button>
+            </div>
+          </div>
+          <div class="form-field wide"><label>Tell us about your goal</label><textarea placeholder="Where do you want to be in 12 months?"></textarea></div>
+        </div>
+        <button class="submit-btn" id="fellow-submit">Submit fellowship application</button>
+      </div>
+
+      <div id="mentor-form" style="display:none;">
+        <div class="form-grid">
+          <div class="form-field"><label>First name</label><input type="text" placeholder="Ronan"></div>
+          <div class="form-field"><label>Last name</label><input type="text" placeholder="Burke"></div>
+          <div class="form-field"><label>Email</label><input type="email" placeholder="ronan@company.com"></div>
+          <div class="form-field"><label>LinkedIn</label><input type="text" placeholder="linkedin.com/in/ronan"></div>
+          <div class="form-field wide"><label>Current role & company</label><input type="text" placeholder="VP Sales EMEA, Salesforce"></div>
+          <div class="form-field wide"><label>Tell us about your GTM background</label><textarea placeholder="What have you built or led? What kinds of roles can you speak to?"></textarea></div>
+        </div>
+        <button class="submit-btn" id="mentor-submit">Submit application</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PARTNER -->
+  <div id="page-partner" class="page">
+    <div class="page-hero">
+      <div class="hero-eyebrow">Partner with Get2</div>
+      <div class="page-hero-title">Invest in the next<br>generation of <span>GTM talent</span></div>
+      <p class="page-hero-sub">We work with universities and companies who believe exceptional sales careers should be built on merit, not luck.</p>
+    </div>
+    <div class="tab-bar">
+      <button id="tab-uni" class="tab-btn active" onclick="showPartnerTab('uni')">We are a university</button>
+      <button id="tab-company" class="tab-btn" onclick="showPartnerTab('company')">We are a company</button>
+    </div>
+    <div id="content-uni" class="tab-content active" style="padding:3rem 2.5rem;">
+      <div class="section-eyebrow">University partnership</div>
+      <div class="section-title">Better outcomes for your graduates</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:3rem;align-items:start;">
+        <div>
+          <p class="section-body">We embed directly with your careers team to give students access to practitioner mentors who hiring managers actually respect. Our fellowship has delivered measurable uplift in commercial placement rates across every partner institution.</p>
+          <ul class="bullet-list" style="margin-top:1.5rem;">
+            <li>Co-branded fellowship for your students</li>
+            <li>Dedicated mentor pool matched to your cohort</li>
+            <li>Joint reporting on placements and progression</li>
+            <li>Guest speaker sessions and career events</li>
+            <li>No cost to fellows — ever</li>
+          </ul>
+        </div>
+        <div class="partner-block">
+          <div style="font-size:28px;margin-bottom:1rem;">🎓</div>
+          <div class="partner-block-title">What your fellows get</div>
+          <p class="partner-block-body">Monthly 1:1 sessions with senior GTM leaders. CV and LinkedIn reviews. Mock interviews. Direct warm introductions to hiring companies in our network.</p>
+        </div>
+      </div>
+    </div>
+    <div id="content-company" class="tab-content" style="padding:3rem 2.5rem 0;">
+      <div class="section-eyebrow">Company partnership</div>
+      <div class="section-title">Three ways to work with us</div>
+      <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:1.5rem;margin-top:2rem;">
+        <div class="service-card"><div class="service-label">Talent pipeline</div><div class="service-title">Recruit GTM fellows</div><p class="service-body">First access to our fellow cohort — motivated, pre-vetted, and already trained by people who know what good GTM looks like. Cut time-to-hire and reduce early attrition.</p><ul class="bullet-list" style="margin-top:1rem;"><li>Exclusive early access to fellows</li><li>Culture-fit pre-screening</li><li>Direct introductions, no agency fees</li></ul></div>
+        <div class="service-card"><div class="service-label">GTM services</div><div class="service-title">Go-to-market advisory</div><p class="service-body">Tap into our mentor network for strategic GTM support — ICP definition, sales process design, or fractional sales leadership.</p><ul class="bullet-list" style="margin-top:1rem;"><li>Project-based engagements</li><li>Fractional sales leadership</li><li>GTM playbook development</li></ul></div>
+        <div class="service-card"><div class="service-label">Brand partnership</div><div class="service-title">Sponsor the fellowship</div><p class="service-body">Align your brand with the next generation of commercial talent. Sponsorship gives you visibility across our university partner network and fellow cohort.</p><ul class="bullet-list" style="margin-top:1rem;"><li>Co-branded events and content</li><li>Campus presence via university partners</li><li>Speaking slots at Get2 events</li></ul></div>
+      </div>
+    </div>
+    <div class="form-section" style="margin-top:2rem;">
+      <div class="form-title">Get in touch</div>
+      <div class="form-sub">Tell us who you are and what you're looking for. We'll come back within 48 hours.</div>
+      <div class="form-grid">
+        <div class="form-field"><label>First name</label><input type="text" placeholder="Ronan"></div>
+        <div class="form-field"><label>Last name</label><input type="text" placeholder="Burke"></div>
+        <div class="form-field"><label>Email</label><input type="email" placeholder="ronan@company.com"></div>
+        <div class="form-field"><label>Organisation</label><input type="text" placeholder="Salesforce / Trinity College"></div>
+        <div class="form-field wide"><label>I am</label><select><option>A university / career services team</option><option>A company looking to recruit GTM fellows</option><option>A company looking for GTM advisory services</option><option>A company interested in brand partnership / sponsorship</option></select></div>
+        <div class="form-field wide"><label>Message</label><textarea placeholder="Tell us a bit about what you're looking for..."></textarea></div>
+      </div>
+      <button class="submit-btn" id="partner-submit">Send message</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  function showPage(name) {
+    document.querySelectorAll('.page').forEach(function(p) { p.classList.remove('active'); });
+    document.getElementById('page-' + name).classList.add('active');
+  }
+
+  function showTab(tab) {
+    document.getElementById('tab-fellow').classList.toggle('active', tab === 'fellow');
+    document.getElementById('tab-mentor').classList.toggle('active', tab === 'mentor');
+    document.getElementById('content-fellow').classList.toggle('active', tab === 'fellow');
+    document.getElementById('content-mentor').classList.toggle('active', tab === 'mentor');
+    document.getElementById('fellow-form').style.display = tab === 'fellow' ? 'block' : 'none';
+    document.getElementById('mentor-form').style.display = tab === 'mentor' ? 'block' : 'none';
+    document.getElementById('form-title').textContent = tab === 'mentor' ? 'Apply as a mentor' : 'Apply for a fellowship';
+    document.getElementById('form-sub').textContent = tab === 'mentor'
+      ? 'One hour a month. Big impact. Tell us about your GTM background.'
+      : 'Takes 3 minutes. Successful candidates become GTM Fellows within 5 working days.';
+  }
+
+  function showPartnerTab(tab) {
+    document.getElementById('tab-uni').classList.toggle('active', tab === 'uni');
+    document.getElementById('tab-company').classList.toggle('active', tab === 'company');
+    document.getElementById('content-uni').classList.toggle('active', tab === 'uni');
+    document.getElementById('content-company').classList.toggle('active', tab === 'company');
+  }
+
+  document.querySelectorAll('.pill-opt').forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var pressed = this.getAttribute('aria-pressed') === 'true';
+      this.setAttribute('aria-pressed', pressed ? 'false' : 'true');
+    });
+  });
+
+  var visaBtns = document.querySelectorAll('#visa-group .toggle-opt');
+  visaBtns.forEach(function(btn) {
+    btn.addEventListener('click', function() {
+      var alreadyPressed = this.getAttribute('aria-pressed') === 'true';
+      visaBtns.forEach(function(b) { b.setAttribute('aria-pressed', 'false'); });
+      if (!alreadyPressed) { this.setAttribute('aria-pressed', 'true'); }
+    });
+  });
+
+  document.getElementById('fellow-submit').addEventListener('click', function() {
+    this.textContent = '✓ Application received — we\'ll be in touch';
+  });
+  document.getElementById('mentor-submit').addEventListener('click', function() {
+    this.textContent = '✓ Application received — we\'ll be in touch';
+  });
+  document.getElementById('partner-submit').addEventListener('click', function() {
+    this.textContent = '✓ Message sent — we\'ll be in touch within 48h';
+  });
+</script>
